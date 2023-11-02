@@ -112,26 +112,33 @@ We recommend creating a global default deny policy after you complete writing th
     ![glob_Setting_short](https://github.com/tigera-solutions/cc-eks-blueprint-secpos-workshop/assets/117195889/a74a774a-4128-44cb-a4a0-65bc56adbdb3)
 
    - Once the traffic is analyzed and the policies show up in the ```Recommendations``` section, select the policies we are interested in for the ```vote``` application, select the ```Bulk Actions``` option and ```Add to policy board``` .
+     
+    ![add_to_policy_board](https://github.com/tigera-solutions/cc-aks-workshop-implement-runtime-security/assets/117195889/c39ab483-83a1-41ee-8c4d-f45721ba2a75)
+   
+    ![add_button](https://github.com/tigera-solutions/cc-aks-workshop-implement-runtime-security/assets/117195889/051a4d2d-1440-4c05-81c0-aaa947082e2d)
 
-      *screenshot*
-
-   - Navigating to the policy board should show the staged policies are in their own tier called namespace-isolation and we are ready review them by clicking on them. We have the namespace isolation policy as well as the default-deny in ia ```Staged``` policy mode so that we can properly review the impact before we apply them.
-
-      *screenshot*
+   - Navigating to the policy board should show the staged policies are in their own tier called namespace-isolation and we are ready review them by clicking on them. We have the namespace isolation policy as well as the default-deny in a ```Staged``` policy mode so that we can properly review the impact before we apply them.
+    
+    ![policy_board_full](https://github.com/tigera-solutions/cc-aks-workshop-implement-runtime-security/assets/117195889/7baada03-94e6-427a-b5de-cae1b148611a)
 
    - Review all the rules for the generated ```vote-``` recommended policy that we added to the board, hit ```Edit``` on the top right, and ```Enforce``` the staged policy.
 
-      *screenshot*
+    ![review_vote](https://github.com/tigera-solutions/cc-aks-workshop-implement-runtime-security/assets/117195889/0c87d34b-3c4f-4c19-8905-8fdac88cdc62)
+    ![enforce_button](https://github.com/tigera-solutions/cc-aks-workshop-implement-runtime-security/assets/117195889/bcb5e135-bc72-4514-9fff-7c1285704587)
 
    - Review the ```default-deny``` policy to ensure that legitimate flows are no longer going to be blocked upon apply using the preview mode. Click into the policy and hit ```Edit Policy``` on the top right and then click on the ```Preview``` button to see the impact of the staged policy upon apply. Pick a recent time range since the ```vote``` recommended policy was applied.
 
+    ![edit_def_deny](https://github.com/tigera-solutions/cc-aks-workshop-implement-runtime-security/assets/117195889/dc75128a-5dc0-488a-ba1d-4d2b7be8f4e7)
+
+    ![policy_preview_1](https://github.com/tigera-solutions/cc-aks-workshop-implement-runtime-security/assets/117195889/4fcd5496-e0b5-4a27-82fd-61c9501f286b)
+
     The result should show no denied traffic within the ```vote``` namespace anymore.
 
-      *screenshot*
+    ![policy_preview_2](https://github.com/tigera-solutions/cc-aks-workshop-implement-runtime-security/assets/117195889/1d9d59fa-921a-42d1-a60a-5dbeb1b16a77)
 
    - Once satisfied with the result, ```Enforce``` the default-deny policy.
 
-3. Nice, the ```vote``` namespace is now secure.
+4. Nice, the ```vote``` namespace is now secure.
 
 ### Bonus - About Tiers
 
