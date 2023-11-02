@@ -6,7 +6,7 @@ In this AKS-focused workshop, you will work with Microsoft Azure and Calico Clou
 
 In an increasingly interconnected and digital world, the security of your AKS Kubernetes clusters is non-negotiable. This workshop equips you with the knowledge and skills to fortify your cluster's defenses comprehensively, ensuring the protection of critical workloads and sensitive data. It empowers you to customize security measures to fit your organization's unique requirements and keeps you ahead of the curve in a rapidly evolving cybersecurity landscape.
 
-Cybersecurity expertise is in high demand and mastering the art of securing Kubernetes environments is a valuable skill set. Whether you're an IT administrator, developer, or security professional, the insights gained in this workshop will enhance your proficiency and make you an invaluable asset to your organization. Additionally, by proactively implementing robust security practices, you can save your organization from potential financial losses and reputational damage that can result from security breaches. 
+Cybersecurity expertise is in high demand and mastering the art of securing Kubernetes environments is a valuable skill set. Whether you're an IT administrator, developer, or security professional, the insights gained in this workshop will enhance your proficiency and make you an invaluable asset to your organization. Additionally, by proactively implementing robust security practices, you can save your organization from potential financial losses and reputational damage that can result from security breaches.
 
 Don't miss this opportunity to bolster your security knowledge, protect your infrastructure, and advance your professional journey.
 
@@ -36,7 +36,7 @@ The estimated time to complete this workshop is 60-90 minutes.
 
 > :warning: **For this workshop, you are expected to have access to a previously created AKS cluster.**
 
-- Please, follow the instructions on the repository below if you don't have it ready: 
+- Please, follow the instructions on the repository below if you don't have it ready:
 
   [Calico Cloud on AKS - Workshop Environment Preparation](https://github.com/tigera-solutions/aks-workshop-prep)
 
@@ -60,7 +60,7 @@ Module 4 - [Zero-Day Attacks Detection with Threat Defence](/mod/module-4-threat
 Module 5 - [Quarantine Infected Workloads and Visualize KSPM](/mod/module-5-quarantine-kspm.md)  
 Module 6 - [Clean up](/mod/module-6-clean-up.md)  
 
---- 
+---
 
 ### Useful links
 
@@ -69,7 +69,7 @@ Module 6 - [Clean up](/mod/module-6-clean-up.md)
 - [O’REILLY EBOOK: Kubernetes security and observability](https://www.tigera.io/lp/kubernetes-security-and-observability-ebook)
 - [Calico Users - Slack](https://slack.projectcalico.org/)
 
-**Follow us on social media**
+### Follow us on social media
 
 - [LinkedIn](https://www.linkedin.com/company/tigera/)
 - [Twitter](https://twitter.com/tigeraio)

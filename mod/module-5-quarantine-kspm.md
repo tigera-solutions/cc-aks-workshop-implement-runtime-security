@@ -26,7 +26,7 @@ We have the `quarantine` policy created in the `security` tier. This policy has 
      curl -m3 http://neverssl.com
      ```  
 
-2. Label the attacker pod with `quarantine = true`. 
+2. Label the attacker pod with `quarantine = true`.
 
    ```bash
    kubectl label pod attacker quarantine=true
@@ -36,8 +36,7 @@ We have the `quarantine` policy created in the `security` tier. This policy has 
 
 ---
 
-## Visualize security posture of your Kubernetes cluster 
-
+## Visualize security posture of your Kubernetes cluster
 
 ### Timeline
 
@@ -55,11 +54,9 @@ Continuous compliance means employing a continual audit that shows what traffic 
 
 ![compliance-reports](https://user-images.githubusercontent.com/104035488/192358634-c873ffb5-f874-495f-8ba4-79806ff84654.gif)
 
-
 2. Explore the Compliance Reports.
 
 ![cis-benchmark](https://user-images.githubusercontent.com/104035488/192358645-ab77c305-0a9d-4242-b37f-972dc22b4d84.gif)
-
 
 **Congratulations! You completed this workshop!**
 

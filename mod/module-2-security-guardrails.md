@@ -14,14 +14,14 @@ In this module, we will learn how to use Calico to create network policies to co
 2. Installing the example application stacks:
 
    From the cloned directory, execute:
-   ```
+
+   ```bash
    kubectl apply -f pre
    ```
 
 Included in the `pre` folder, there is an application that will be used in the exercises during the workshop. The diagram below shows how the elements of this application communicate between themselves.
 
 ![vote](https://github.com/tigera-solutions/cc-eks-compliance/assets/104035488/142ea62b-be3e-4c37-b39c-b501e1834f89)
-
 
 There are also other objects that will be created. We will learn about them later in the workshop.
 
@@ -79,73 +79,63 @@ We recommend creating a global default deny policy after you complete writing th
 
    The staged policy does not affect the traffic directly but allows you to view the policy impact if it were to be enforced. You can see the denied traffic in the staged policy.
 
-2. Based on the application design, the `db` lists on port `5432` and receive connections from the `worker` and the `result` microservices. 
-   Let's use the Calico Cloud UI to create a policy to microsegment this traffic.
+2. Now, let's use the **Policy Recommendations** feature to create the policies for the ```vote``` application.
 
-   - Go to the `Policies Board`
-   - On the bottom of the tier box `platform` click on `Add Policy`
-     - In the `Create Policy` page enter the policy name: `db`
-     - Change the `Scope` from `Global` to `Namespace` and select the namespace `vote`
-     - On the `Applies To` session, click `Add Label Seletor`
-       - Select Key... `app`
-       - =
-       - Select Value... `db`
-       - Click on `SAVE LABEL SELECTOR`
-     - On the field `Type` select the checkbox for Ingress.
-     - Click on `Add Ingress Rule`
-       - On the `Create New Policy Rule` window,
-         - Click on the `dropdown` with `Any Protocol`
-         - Change the radio button to `Protocol is` and select `TCP`
-         - In the field `To:` click on `Add Port` 
-         - `Port is` 5432 - Save
-         - In the field `From:`, click `Add Label Seletor`
-           - Select Key... `app`
-           - =
-           - Select Value... `worker`
-           - Click on `SAVE LABEL SELECTOR`  
-           - On `OR`, click `Add Label Seletor`
-           - Select Key... `app`
-           - =
-           - Select Value... `result`
-           - Click on `SAVE LABEL SELECTOR`
-         - Click on the button `Save Rule`
-     - You are done. Click `Enforce` on the top-right of your page.
+   - Select the correct cluster context on the top right, then in the left hamburger menu click on ```Policies > Recommendations```
 
-3. Now, let's use the **Recommend a Policy** feature to create the policies for the other workloads.
+    ![policy_gui_1](https://github.com/tigera-solutions/cc-eks-blueprint-secpos-workshop/assets/117195889/3980f84a-0128-4e28-b023-f79450658e56)
 
-   Let's start with the `redis` database.
+   - You will be presented with a page to enable the feature. Click the ```Enable Policy Recommendations``` button to instantiate the daemonset/pods for the feature.
 
-   - Click on `Recommend a Policy`
-     
-     ![recommend](https://github.com/tigera-solutions/cc-aks-detect-block-network-attacks/assets/104035488/328a7010-e008-49d1-bb6e-751c2ecdf413)
-   
-   - Select the `vote` namespace in the Namespace dropdown 
-     
-     ![select namespace](https://github.com/tigera-solutions/cc-aks-detect-block-network-attacks/assets/104035488/bb4bf93d-f1fc-425a-b5ca-7a53dcc53f85)
+    ![enable_policy_reco](https://github.com/tigera-solutions/cc-eks-blueprint-secpos-workshop/assets/117195889/720a7cd9-bc9b-4733-9b4d-7599d9d6c188)
 
-   - Click on `Advanced Options` and select the `redis-xxxxxxx-*` from the dropdown, and click on the `Recommend` button to get the recommended policy.
+     You can check that ```policy-recommendation``` shows ```True``` under the ```AVAILABLE``` column when you run ```kubectl get tigerastatus```
 
-     ![workload](https://github.com/tigera-solutions/cc-aks-detect-block-network-attacks/assets/104035488/131fe2ce-d53e-4858-8128-23caef8ca6ac)
- 
-   - Note that the selector and the rules are already present!
+   ```bash
+   NAME                            AVAILABLE   PROGRESSING   DEGRADED   SINCE
+    apiserver                       True        False         False      123m
+    calico                          True        False         False      125m
+    cloud-core                      True        False         False      125m
+    compliance                      True        False         False      123m
+    image-assurance                 True        False         False      123m
+    intrusion-detection             True        False         False      123m
+    log-collector                   True        False         False      123m
+    management-cluster-connection   True        False         False      123m
+    monitor                         True        False         False      124m
+    policy-recommendation           True        False         False      123m
+    ```
 
-     ![review the policy](https://github.com/tigera-solutions/cc-aks-detect-block-network-attacks/assets/104035488/05c16863-ff65-462d-b900-e67f82e47c32)
-   
-   - Click on the Enforce button
+   - In the Calico Cloud GUI, click on ```Global Settings``` on the top right and make the ```Stabilization Period``` and ```Processing Interval``` a bit more aggressive to have the policy recommendations show up more quickly.
 
-     ![enforce](https://github.com/tigera-solutions/cc-aks-detect-block-network-attacks/assets/104035488/5958c64e-9fc8-49ff-b5e0-64cb31465b3f)
+    ![glob_Settings_location](https://github.com/tigera-solutions/cc-eks-blueprint-secpos-workshop/assets/117195889/f9b4a7be-0869-48cc-9337-052a3693270a)
 
-   - By default, all the recommended policies are created in the `default` tier. You can drag and drop a policy to reorganize in the same tier or in another tier. Move the policy to the platform tier.
-     
-     ![move](https://github.com/tigera-solutions/cc-aks-detect-block-network-attacks/assets/104035488/fca4eefd-dd1a-4497-a242-13de99755929)
+    ![glob_Setting_short](https://github.com/tigera-solutions/cc-eks-blueprint-secpos-workshop/assets/117195889/a74a774a-4128-44cb-a4a0-65bc56adbdb3)
 
-   Great! You just created a recommended policy. Easy, right? Now go ahead and create policies for all the other workloads in the vote namespace.
+   - Once the traffic is analyzed and the policies show up in the ```Recommendations``` section, select the policies we are interested in for the ```vote``` application, select the ```Bulk Actions``` option and ```Add to policy board``` .
 
-4. If you create all the policies correctly, at some point, you will start seeing zero traffic being denied by your default-deny staged policy. At that point, you can go ahead and enforce the default-deny policy. Voilà! The vote namespace is now secure.
+      *screenshot*
+
+   - Navigating to the policy board should show the staged policies are in their own tier called namespace-isolation and we are ready review them by clicking on them. We have the namespace isolation policy as well as the default-deny in ia ```Staged``` policy mode so that we can properly review the impact before we apply them.
+
+      *screenshot*
+
+   - Review all the rules for the generated ```vote-``` recommended policy that we added to the board, hit ```Edit``` on the top right, and ```Enforce``` the staged policy.
+
+      *screenshot*
+
+   - Review the ```default-deny``` policy to ensure that legitimate flows are no longer going to be blocked upon apply using the preview mode. Click into the policy and hit ```Edit Policy``` on the top right and then click on the ```Preview``` button to see the impact of the staged policy upon apply. Pick a recent time range since the ```vote``` recommended policy was applied.
+
+    The result should show no denied traffic within the ```vote``` namespace anymore.
+
+      *screenshot*
+
+   - Once satisfied with the result, ```Enforce``` the default-deny policy.
+
+3. Nice, the ```vote``` namespace is now secure.
 
 ### Bonus - About Tiers
 
-Tiers are a hierarchical construct used to group policies and enforce higher precedence policies that other teams cannot circumvent, providing the basis for **Identity-aware micro-segmentation**. 
+Tiers are a hierarchical construct used to group policies and enforce higher precedence policies that other teams cannot circumvent, providing the basis for **Identity-aware micro-segmentation**.
 
 All Calico and Kubernetes security policies reside in tiers. You can start “thinking in tiers” by grouping your teams and the types of policies within each group, such as security, platform, etc.
 
@@ -160,11 +150,9 @@ Two mechanisms drive how traffic is processed across tiered policies:
 
 For more information about tiers, please refer to the Calico Cloud documentation [Understanding policy tiers](https://docs.calicocloud.io/get-started/tutorials/policy-tiers)
 
-
---- 
+---
 
 [:arrow_right: Module 3 - Configuring the Workload-Centric WAF](/mod/module-3-waf.md)  <br>
 
-[:arrow_left: Module 1 - Connect the AKS cluster to Calico Cloud](/mod/module-1-connect-calicocloud.md)    
+[:arrow_left: Module 1 - Connect the AKS cluster to Calico Cloud](/mod/module-1-connect-calicocloud.md)
 [:leftwards_arrow_with_hook: Back to Main](/README.md)  
-

